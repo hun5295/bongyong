@@ -8,22 +8,23 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    line-height: 1.6;
 }
 
 .container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 16px;
 }
 
 .slider-container {
     position: relative;
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
 }
 
 .slider {
@@ -36,7 +37,6 @@ body {
 .slide {
     width: 25%;
     height: 100%;
-    background-color: #000;
 }
 
 .slide img {
@@ -45,18 +45,10 @@ body {
     object-fit: cover;
 }
 
-.slider-controls {
+.prev-btn, .next-btn {
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
     transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
-.prev-btn, .next-btn {
     background: rgba(255, 255, 255, 0.8);
     border: none;
     width: 40px;
@@ -67,52 +59,57 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    z-index: 10;
 }
+
+.prev-btn { left: 16px; }
+.next-btn { right: 16px; }
 
 .prev-btn:hover, .next-btn:hover {
     background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .info-section {
     background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
 h1 {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: #2c3e50;
-    font-weight: 600;
-    text-align: center;
+    font-weight: 700;
 }
 
-.address, .contact, .links {
-    margin-bottom: 20px;
+.info-item {
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-.links {
-    flex-direction: column;
-    gap: 15px;
+.info-item a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
 }
 
-.address i, .phone i, .website i, .youtube i {
-    color: #3498db;
+.info-item i {
     font-size: 1.2rem;
+    color: #3498db;
 }
 
 .map-link i {
     color: #e74c3c;
-    font-size: 1.2rem;
-    margin-left: 10px;
-    cursor: pointer;
+    margin-left: 8px;
     transition: transform 0.3s ease;
 }
 
@@ -120,53 +117,40 @@ h1 {
     transform: scale(1.2);
 }
 
-.phone, .website, .youtube {
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: color 0.3s ease;
-}
-
-.phone:hover, .website:hover, .youtube:hover {
-    color: #3498db;
-}
-
 .youtube i {
     color: #ff0000;
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 12px;
+    }
+
     .slider-container {
         height: 50vh;
         margin-bottom: 20px;
     }
-    
+
     h1 {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
     }
-    
+
     .info-section {
-        padding: 20px 15px;
+        padding: 20px 16px;
     }
 
-    .address, .contact, .links {
-        margin-bottom: 15px;
-        gap: 8px;
-        font-size: 0.9rem;
+    .info-item {
+        font-size: 0.95rem;
+        margin-bottom: 14px;
     }
 
-    .address i, .phone i, .website i, .youtube i {
-        font-size: 1rem;
+    .info-item i {
+        font-size: 1.1rem;
     }
 
-    .map-link i {
-        font-size: 1rem;
-    }
-
-    .links {
-        gap: 12px;
+    .prev-btn, .next-btn {
+        width: 36px;
+        height: 36px;
     }
 } 
