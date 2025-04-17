@@ -4,19 +4,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.querySelector('.next-btn');
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
+    let isTransitioning = false;
 
-    function updateSlider() {
+    function updateSlider(instant = false) {
+        if (instant) {
+            slider.style.transition = 'none';
+        } else {
+            slider.style.transition = 'transform 0.5s ease-in-out';
+        }
         slider.style.transform = `translateX(-${currentSlide * 25}%)`;
     }
 
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
+        currentSlide++;
         updateSlider();
+
+        if (currentSlide >= slides.length) {
+            setTimeout(() => {
+                currentSlide = 0;
+                updateSlider(true);
+                isTransitioning = false;
+            }, 500);
+        } else {
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        }
     }
 
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        updateSlider();
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        if (currentSlide === 0) {
+            currentSlide = slides.length;
+            updateSlider(true);
+            setTimeout(() => {
+                currentSlide--;
+                updateSlider();
+            }, 20);
+        } else {
+            currentSlide--;
+            updateSlider();
+        }
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 500);
     }
 
     // 버튼 클릭 이벤트
@@ -32,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slider.addEventListener('touchend', (e) => {
+        if (isTransitioning) return;
         touchEndX = e.changedTouches[0].clientX;
         const swipeDistance = touchEndX - touchStartX;
         
