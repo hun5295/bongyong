@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (instant) {
             slider.style.transition = 'none';
         } else {
-            slider.style.transition = 'transform 0.5s ease-in-out';
+            slider.style.transition = 'transform 0.3s ease';
         }
         slider.style.transform = `translateX(-${currentSlide * 25}%)`;
     }
@@ -28,21 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function nextSlide() {
         if (isTransitioning) return;
         isTransitioning = true;
-        
-        currentSlide++;
-        updateSlider();
 
-        // 마지막 복제 슬라이드에 도달했을 때
-        if (currentSlide >= slides.length + 1) {
-            setTimeout(() => {
-                currentSlide = 1;
-                updateSlider(true);
-                isTransitioning = false;
-            }, 500);
+        if (currentSlide === slides.length - 1) {
+            // 마지막 슬라이드에서 첫 번째로 즉시 전환
+            slider.style.transition = 'none';
+            currentSlide = 0;
+            slider.style.transform = `translateX(0)`;
+            isTransitioning = false;
         } else {
+            currentSlide++;
+            slider.style.transition = 'transform 0.3s ease';
+            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
             setTimeout(() => {
                 isTransitioning = false;
-            }, 500);
+            }, 300);
         }
     }
 
@@ -50,20 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isTransitioning) return;
         isTransitioning = true;
 
-        currentSlide--;
-        updateSlider();
-
-        // 첫 번째 복제 슬라이드에 도달했을 때
         if (currentSlide === 0) {
-            setTimeout(() => {
-                currentSlide = slides.length;
-                updateSlider(true);
-                isTransitioning = false;
-            }, 500);
+            // 첫 번째 슬라이드에서 마지막으로 즉시 전환
+            slider.style.transition = 'none';
+            currentSlide = slides.length - 1;
+            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+            isTransitioning = false;
         } else {
+            currentSlide--;
+            slider.style.transition = 'transform 0.3s ease';
+            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
             setTimeout(() => {
                 isTransitioning = false;
-            }, 500);
+            }, 300);
         }
     }
 
