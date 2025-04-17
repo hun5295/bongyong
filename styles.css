@@ -35,6 +35,15 @@ body {
     overflow: hidden;
     margin-bottom: 24px;
     background-color: #fff;
+    transition: transform 0.4s ease-out, height 0.4s ease-out;
+    transform-origin: top center;
+}
+
+.slider-container.shrink {
+    transform: scale(0.9);
+    height: calc((100vh - 200px) * 0.8);
+    min-height: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .slider {
@@ -169,9 +178,18 @@ h1 {
     }
     .slider-container {
         width: 100%;
-        height: calc(100vh - 150px);
-        min-height: 500px;
+        height: calc(80vh);
+        min-height: 400px;
         margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .slider-container.shrink {
+        height: calc(60vh);
+        min-height: 300px;
+        transform: scale(0.9);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .slide {

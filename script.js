@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const sliderContainer = document.querySelector('.slider-container');
     const slider = document.querySelector('.slider');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
@@ -56,4 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // --- 스크롤 효과 추가 --- 
+    const scrollThreshold = 50; // 스크롤 임계값 (px)
+    let isMobile = window.innerWidth <= 768; // 초기 모바일 확인
+
+    function handleScroll() {
+        if (isMobile && sliderContainer) { // 모바일이고 sliderContainer가 있을 때만 실행
+            if (window.scrollY > scrollThreshold) {
+                sliderContainer.classList.add('shrink');
+            } else {
+                sliderContainer.classList.remove('shrink');
+            }
+        }
+    }
+
+    // 창 크기 변경 시 모바일 여부 재확인
+    window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 768;
+        // 리사이즈 시 스크롤 상태 즉시 반영 (선택 사항)
+        if (!isMobile && sliderContainer) {
+            sliderContainer.classList.remove('shrink'); // PC에서는 shrink 제거
+        }
+        handleScroll(); // 리사이즈 후 스크롤 상태 다시 확인
+    });
+
+    // 스크롤 이벤트 리스너 등록
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // 페이지 로드 시 초기 스크롤 상태 확인
+    handleScroll();
+    // --- 스크롤 효과 끝 --- 
 }); 
