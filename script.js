@@ -6,63 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSlide = 0;
     let isTransitioning = false;
 
-    // 첫 번째 슬라이드와 마지막 슬라이드를 복제하여 앞뒤에 추가
-    const firstSlideClone = slides[0].cloneNode(true);
-    const lastSlideClone = slides[slides.length - 1].cloneNode(true);
-    slider.appendChild(firstSlideClone);
-    slider.insertBefore(lastSlideClone, slides[0]);
-
-    // 초기 위치 설정 (첫 번째 슬라이드로)
-    currentSlide = 1;
-    slider.style.transform = `translateX(-${currentSlide * 25}%)`;
-
-    function updateSlider(instant = false) {
-        if (instant) {
-            slider.style.transition = 'none';
-        } else {
-            slider.style.transition = 'transform 0.3s ease';
-        }
+    function updateSlider() {
         slider.style.transform = `translateX(-${currentSlide * 25}%)`;
     }
 
     function nextSlide() {
         if (isTransitioning) return;
         isTransitioning = true;
-
-        if (currentSlide === slides.length - 1) {
-            // 마지막 슬라이드에서 첫 번째로 즉시 전환
-            slider.style.transition = 'none';
-            currentSlide = 0;
-            slider.style.transform = `translateX(0)`;
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlider();
+        setTimeout(() => {
             isTransitioning = false;
-        } else {
-            currentSlide++;
-            slider.style.transition = 'transform 0.3s ease';
-            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 300);
-        }
+        }, 500);
     }
 
     function prevSlide() {
         if (isTransitioning) return;
         isTransitioning = true;
-
-        if (currentSlide === 0) {
-            // 첫 번째 슬라이드에서 마지막으로 즉시 전환
-            slider.style.transition = 'none';
-            currentSlide = slides.length - 1;
-            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSlider();
+        setTimeout(() => {
             isTransitioning = false;
-        } else {
-            currentSlide--;
-            slider.style.transition = 'transform 0.3s ease';
-            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 300);
-        }
+        }, 500);
     }
 
     // 버튼 클릭 이벤트
