@@ -31,7 +31,7 @@ body {
     width: calc(100vw - 32px);
     max-width: 100%;
     height: auto;
-    aspect-ratio: 3/4;
+    aspect-ratio: 9/16;
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -62,7 +62,7 @@ body {
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 
@@ -151,7 +151,7 @@ h1 {
 
     .slider-container {
         width: calc(100vw - 24px);
-        aspect-ratio: 3/4;
+        aspect-ratio: 9/16;
         margin-bottom: 20px;
         border-radius: 8px;
     }
@@ -181,5 +181,17 @@ h1 {
 
     .slide {
         width: calc(100vw - 24px);
+    }
+}
+
+@media (min-width: 769px) {
+    .slider-container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .slide {
+        width: 500px;
     }
 } 
