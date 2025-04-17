@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSlide = 0;
     let isTransitioning = false;
 
+    // 첫 번째 슬라이드와 마지막 슬라이드를 복제하여 앞뒤에 추가
+    const firstSlideClone = slides[0].cloneNode(true);
+    const lastSlideClone = slides[slides.length - 1].cloneNode(true);
+    slider.appendChild(firstSlideClone);
+    slider.insertBefore(lastSlideClone, slides[0]);
+
+    // 초기 위치 설정 (첫 번째 슬라이드로)
+    currentSlide = 1;
+    slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+
     function updateSlider(instant = false) {
         if (instant) {
             slider.style.transition = 'none';
@@ -22,9 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlide++;
         updateSlider();
 
-        if (currentSlide >= slides.length) {
+        // 마지막 복제 슬라이드에 도달했을 때
+        if (currentSlide >= slides.length + 1) {
             setTimeout(() => {
-                currentSlide = 0;
+                currentSlide = 1;
                 updateSlider(true);
                 isTransitioning = false;
             }, 500);
@@ -39,21 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isTransitioning) return;
         isTransitioning = true;
 
-        if (currentSlide === 0) {
-            currentSlide = slides.length;
-            updateSlider(true);
-            setTimeout(() => {
-                currentSlide--;
-                updateSlider();
-            }, 20);
-        } else {
-            currentSlide--;
-            updateSlider();
-        }
+        currentSlide--;
+        updateSlider();
 
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 500);
+        // 첫 번째 복제 슬라이드에 도달했을 때
+        if (currentSlide === 0) {
+            setTimeout(() => {
+                currentSlide = slides.length;
+                updateSlider(true);
+                isTransitioning = false;
+            }, 500);
+        } else {
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        }
     }
 
     // 버튼 클릭 이벤트
@@ -93,4 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // slider.addEventListener('mouseleave', () => {
     //     autoSlideInterval = setInterval(nextSlide, 5000);
     // });
+
+    // 트랜지션 종료 이벤트 리스너
+    slider.addEventListener('transitionend', () => {
+        isTransitioning = false;
+    });
 }); 
