@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTransitioning = false;
 
     function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+        // 각 슬라이드 너비가 25%이므로 transform 값도 25% 기준으로 계산
+        slider.style.transform = `translateX(-${currentSlide * 25}%)`; 
     }
 
     function nextSlide() {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSlider();
         setTimeout(() => {
             isTransitioning = false;
-        }, 500);
+        }, 500); // 애니메이션 시간과 동일하게 설정
     }
 
     function prevSlide() {
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSlider();
         setTimeout(() => {
             isTransitioning = false;
-        }, 500);
+        }, 500); // 애니메이션 시간과 동일하게 설정
     }
 
     // 버튼 클릭 이벤트
