@@ -42,7 +42,7 @@ body {
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .slider-controls {
@@ -140,13 +140,33 @@ h1 {
 @media (max-width: 768px) {
     .slider-container {
         height: 50vh;
+        margin-bottom: 20px;
     }
     
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
     }
     
     .info-section {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+
+    .address, .contact, .links {
+        margin-bottom: 15px;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .address i, .phone i, .website i, .youtube i {
+        font-size: 1rem;
+    }
+
+    .map-link i {
+        font-size: 1rem;
+    }
+
+    .links {
+        gap: 12px;
     }
 } 
